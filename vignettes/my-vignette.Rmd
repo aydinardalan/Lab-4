@@ -1,0 +1,78 @@
+---
+title: "Linear Regression Package in R"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linear Regression Package in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Linear Regression Introduction
+
+Linear regression is a method for creating a statistical model that can be used to predict the
+future outcome based on available data. The dependent variable **y** and independent variable **X** (also called predictor) follow below simple linear regression equation:
+  
+  **y** = *B*~eta0~ + *B*~eta1~ * **X**
+  
+  *B*~eta0~ and *B*~eta1~ are the regression coefficients which can be defined as intercept and slope of the linear model, respectively. Non-zero coefficients demonstrate strong relation between the predictor (**X**) and the outcome (**y**). In addition to the simple linear regression, we can define the multiple linear regression equation as follows:
+  
+  **y** = *B*~eta0~ + *B*~eta1~ * **X~1~** + *B*~eta2~ * **X~2~** + ... + *B*~etan~ * **X~n~**
+  
+  Below plot shows an example of the simple linear equation:
+  
+  ```{r}
+# X <- c(1:20)
+# Y1 <- 2 + 0.25 * X
+# Y2 <- 2 * X
+# plot(X, Y1, type="l", col="blue", main="Simple Linear Model", xlab="X", ylab="Y", lwd=4, xlim=c(0,20), ylim=c(0,40))
+# lines(X, Y2, col="red", lwd=4, xlim=c(0,20), ylim=c(0,40))
+# legend(100,0.6, 
+#        c("Y1","Y2"),lty=c(1,1), 
+#        lwd=c(1,1),col=c("blue","red"))
+```
+
+
+## Methodology & Formula
+
+This R package contains a function called **linreg()** which accepts two arguments **formula** and **data**. The function is written in RC class and the *ordinary least square* method (OSL) is used to calculate the parameters of the linear regression model. Below, one can find the detail of formula.
+
+**Regression coefficients:**
+  
+  $\beta = (X^{T}X)^{-1}X^{T}y$
+  
+  
+  **The fitted values:**
+  
+  $y{'} = X\beta$
+
+**The residuals:**
+
+$e{'} = y - y{'} = y - X\beta$
+
+**The degrees of freedom:**
+
+$df = n - p$
+
+**The residual variance:**
+
+$\sigma{'}^{2} = \frac{(e^{T}e)}{df}$
+  
+  **The variance of the regression coefficients:**
+  
+  $Var{'}(\beta) = \sigma{'}^{2}(X^{T}X)^{-1}$
+  
+  **The t-values for each coefficient:**
+  
+  $t~\beta~ = \frac{\beta}{\sqrt{Var(\beta)}}$
+  
+
+```{r setup}
+library(LabFour)
+```
