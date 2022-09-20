@@ -106,12 +106,12 @@ linreg <- setRefClass("linreg",
                           "plots fitted values versus residuals and standardized residuals"
                           library(ggplot2)
                           plot1 <- ggplot(data.frame(Yfit, E), aes(y=E, x=Yfit)) + geom_point(shape=21, size=3, colour="black", fill="white")
-                          plot1 <- plot1 + liu_theme()
+                          plot1 <- plot1 
                           plot1 <- plot1 + stat_summary(fun.y=median, colour="red", geom="line", aes(group = 1))
                           plot1 <- plot1 + ggtitle("Residuals vs fitted") + xlab(paste("Fitted values \n lm(Petal.Length ~ Species)"))+ ylab("Residuals")
                           
                           plot2 <- ggplot(data.frame(Yfit, sqrtstresiduals), aes(y=sqrtstresiduals, Yfit)) + geom_point(alpha = 0.6, shape=21, size=3, colour="black", fill="white")
-                          plot2 <- plot2 + liu_theme()
+                          plot2 <- plot2 
                           plot2 <- plot2 + stat_summary(fun.y=median, colour="red", geom="line", aes(group = 1))
                           plot2 <- plot2 + ggtitle("Scale-Location") + xlab(paste("Fitted values \n lm(Petal.Length ~ Species)"))
                           plot2 <- plot2 + scale_x_continuous(breaks = seq(0.0, 1.5, by= 0.5))

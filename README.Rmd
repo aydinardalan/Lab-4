@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # LabFour
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/aydinardalan/LabFour/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aydinardalan/LabFour/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 he goal of Lab4 is to create a package using linear algebra formulas to handle linear regression models. It also made use of object oriented system to handle special functions such as print(), plot(), resid(), pred(), coef() and summary(). A vignette is also created on how the package can be used to conduct a simple regression analysis using a dataset included in the package. Course information and all assignments can be found at <https://www.ida.liu.se/~732A94/info/courseinfo.en.shtml>

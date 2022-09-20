@@ -14,6 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r setup}
+library(Lab4)
+```
+
+
 ## Linear Regression Introduction
 
 Linear regression is a method for creating a statistical model that can be used to predict the
@@ -27,21 +32,21 @@ future outcome based on available data. The dependent variable **y** and indepen
   
   Below plot shows an example of the simple linear equation:
   
-  ```{r}
-# X <- c(1:20)
-# Y1 <- 2 + 0.25 * X
-# Y2 <- 2 * X
-# plot(X, Y1, type="l", col="blue", main="Simple Linear Model", xlab="X", ylab="Y", lwd=4, xlim=c(0,20), ylim=c(0,40))
-# lines(X, Y2, col="red", lwd=4, xlim=c(0,20), ylim=c(0,40))
-# legend(100,0.6, 
-#        c("Y1","Y2"),lty=c(1,1), 
-#        lwd=c(1,1),col=c("blue","red"))
+```{r}
+X <- c(0:20)
+Y1 <- 7 + 0.75 * X
+Y2 <- 0.5 + 2 * X
+plot(X, Y1, type="l", col="blue", main="Simple Linear Model", xlab="X", ylab="Y", lwd=4, xlim=c(0,20), ylim=c(0,40))
+lines(X, Y2, col="red", lwd=4)
+legend(100,0.6,
+       c("Y1","Y2"),lty=c(1,1),
+       lwd=c(1,1),col=c("blue","red"))
 ```
 
 
 ## Methodology & Formula
 
-This R package contains a function called **linreg()** which accepts two arguments **formula** and **data**. The function is written in RC class and the *ordinary least square* method (OSL) is used to calculate the parameters of the linear regression model. Below, one can find the detail of formula.
+This R package contains a function called **linreg()** which accepts two arguments **formula** and **data**. The function is written in RC class and the *ordinary least square* method (OSL) is used to calculate the parameters of the linear regression model.Below, one can find the detail of formula.
 
 **Regression coefficients:**
   
@@ -72,7 +77,121 @@ $\sigma{'}^{2} = \frac{(e^{T}e)}{df}$
   
   $t~\beta~ = \frac{\beta}{\sqrt{Var(\beta)}}$
   
+  
+  ## Function Structure & Parameters
+  
+  In this section, function structure as well as parameters will be explained by showing examples. First of all, the predictor (independent) variable **X** will be defined by using *model.matrix()* function and then *all.vars()* function will be used for having the dependent variable, **y**. Iris data set is used in this package. Some characteristics of this data are shown below.
 
-```{r setup}
-library(LabFour)
+```{r}
+data(iris)
+head(iris, 4)
+summary(iris)
+```
+
+Now, an object will be created and we will go through the function and explain the parameters step by step.
+
+```{r}
+mod_object <- linreg$new(formula = Petal.Length~Species, data = iris)
+```
+
+As mentioned before, the first step is to create **X** variable using *model.matrix()* function: 
+  
+```{r}
+head(mod_object$X)
+dim(mod_object$X)
+```
+
+Then we can have variable **y**:
+  
+```{r}
+head(mod_object$Y)
+dim(mod_object$Y)
+```
+
+By having **X** and **y** variables, now all linear calculations can be done via above mentioned formula.
+
+**Regression coefficients:**
+```{r}
+mod_object$B
+```
+
+**The fitted values:**
+```{r}
+head(mod_object$Yfit)
+dim(mod_object$Yfit)
+```
+
+**The residuals:**
+```{r}
+head(mod_object$E)
+dim(mod_object$E)
+```
+
+**The degrees of freedom:**
+```{r}
+mod_object$P
+mod_object$N
+mod_object$dof
+```
+
+**The residual variance:**
+```{r}
+mod_object$Estd
+```
+
+**The variance of the regression coefficients:**
+```{r}
+mod_object$var_B
+```
+
+**The t-values for each coefficient:**
+```{r}
+mod_object$tval
+```
+
+
+The function contains several methods which return different results. We will now describe each method and show its output with an example.
+
+**print()**\
+This method prints the coefficients and their name, similar to the output of the lm function.
+
+```{r}
+mod_object$print()
+```
+
+**plot()**\
+The plot method will generate below two plots using *ggplot2*.
+
+```{r}
+mod_object$plot()
+```
+
+**resid()**\
+This method can be used for returning the vector of residuals e.
+
+```{r}
+head(mod_object$resid())
+length(mod_object$resid())
+```
+
+**pred()**\
+The pred method returns the predicted values of y.
+
+```{r}
+head(mod_object$pred())
+dim(mod_object$pred())
+```
+
+**coef()**\
+The coef method return the coefficients as a named vector.
+
+```{r}
+mod_object$coef()
+```
+
+**summary()**\
+The summary method returns a similar printout as printed for lm objects. However, only the coefficients with their standard error, t-value and p-value as well as the estimate of $\sigma{'}$ and the degrees of freedom in the model will be presented.
+
+```{r}
+mod_object$summary()
 ```
