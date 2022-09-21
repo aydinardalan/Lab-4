@@ -1,7 +1,6 @@
 #' name <- "Aydin Ardalan , Seyed Mehdi Mirshojaei"
 #' liuid <- "Aydar442, Seymi176"
 #' github_username <- "aydinardalan, Seymi176"
-
 #' Create a linear regression object
 #' @param formula, The linear model's formula.
 #' @param data, The provided dataset.
@@ -121,7 +120,6 @@ linreg <- setRefClass("linreg",
                         },
                         
                         summary = function(){
-                          "Prints the summary of linear regression model."
                           cat(paste("linreg(formula = ", format(Formula), ", data = ", Data, ") :\n\n ", sep = ""))
                           x <- setNames(as.data.frame(cbind(B,as.matrix(sqrt(diag(var_B))),tval, formatC(pval, format = "e", digits = 2), count_stars_P(pval))), c("Coefficients","Standard error","t values", "p values", ""))
                           # y <- data.frame(rownames(B), x)
@@ -132,7 +130,6 @@ linreg <- setRefClass("linreg",
 )
 
 #' myPrint (custom print)
-#'
 #' @param x object
 #' @param stripoff stripoff column names will be stripped off.
 #'
