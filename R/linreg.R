@@ -104,17 +104,17 @@ linreg <- setRefClass("linreg",
                         #Plot function
                         plot = function() {
                           "plots fitted values versus residuals and standardized residuals"
-                          library(ggplot2)
-                          plot1 <- ggplot(data.frame(Yfit, E), aes(y=E, x=Yfit)) + geom_point(shape=21, size=3, colour="black", fill="white")
+                          # library(ggplot2)
+                          plot1 <- ggplot2::ggplot(data.frame(Yfit, E), ggplot2::aes(y=E, x=Yfit)) + ggplot2::geom_point(shape=21, size=3, colour="black", fill="white")
                           plot1 <- plot1 
-                          plot1 <- plot1 + stat_summary(fun.y=median, colour="red", geom="line", aes(group = 1))
-                          plot1 <- plot1 + ggtitle("Residuals vs fitted") + xlab(paste("Fitted values \n lm(Petal.Length ~ Species)"))+ ylab("Residuals")
+                          plot1 <- plot1 + ggplot2::stat_summary(fun.y=median, colour="red", geom="line", ggplot2::aes(group = 1))
+                          plot1 <- plot1 + ggplot2::ggtitle("Residuals vs fitted") + ggplot2::xlab(paste("Fitted values \n lm(Petal.Length ~ Species)"))+ ggplot2::ylab("Residuals")
                           
-                          plot2 <- ggplot(data.frame(Yfit, sqrtstresiduals), aes(y=sqrtstresiduals, Yfit)) + geom_point(alpha = 0.6, shape=21, size=3, colour="black", fill="white")
+                          plot2 <- ggplot2::ggplot(data.frame(Yfit, sqrtstresiduals), ggplot2::aes(y=sqrtstresiduals, Yfit)) + ggplot2::geom_point(alpha = 0.6, shape=21, size=3, colour="black", fill="white")
                           plot2 <- plot2 
-                          plot2 <- plot2 + stat_summary(fun.y=median, colour="red", geom="line", aes(group = 1))
-                          plot2 <- plot2 + ggtitle("Scale-Location") + xlab(paste("Fitted values \n lm(Petal.Length ~ Species)"))
-                          plot2 <- plot2 + scale_x_continuous(breaks = seq(0.0, 1.5, by= 0.5))
+                          plot2 <- plot2 + ggplot2::stat_summary(fun.y=median, colour="red", geom="line", ggplot2::aes(group = 1))
+                          plot2 <- plot2 + ggplot2::ggtitle("Scale-Location") + ggplot2::xlab(paste("Fitted values \n lm(Petal.Length ~ Species)"))
+                          plot2 <- plot2 + ggplot2::scale_x_continuous(breaks = seq(0.0, 1.5, by= 0.5))
                           
                           plotlist <- list(plot1, plot2)
                           return(plotlist)
