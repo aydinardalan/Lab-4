@@ -1,4 +1,4 @@
-Package: Lab4
+Package: LabFour
 Title: Linear Regression
 Version: 1.0
 Authors@R: 
@@ -18,3 +18,4 @@ Imports:
     methods,
     ggplot2 
 VignetteBuilder: knitr
+LazyData: true

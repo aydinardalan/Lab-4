@@ -28,6 +28,7 @@
 #' @export linreg
 #' @exportClass linreg
 #' @import methods
+#' @import ggplot2
 
 linreg <- setRefClass("linreg",
                       fields = list(formula="formula",

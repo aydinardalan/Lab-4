@@ -68,7 +68,5 @@ Create a linear regression object
 
 \describe{
 \item{\code{plot()}}{plots fitted values versus residuals and standardized residuals}
-
-\item{\code{summary()}}{Prints the summary of linear regression model.}
 }}
 
