@@ -89,6 +89,7 @@ linreg <- setRefClass("linreg",
                           cat(paste("linreg(formula = ", format(Formula), ", data = ", Data , ")\n\n ", sep = ""))
                           # setNames(round(B[1:nrow(B)],3),rownames(B))
                           cat(rownames(B), "\n")
+                          B
                         },
                         resid = function(){
                           return(as.vector(E))

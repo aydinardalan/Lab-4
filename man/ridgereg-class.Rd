@@ -19,23 +19,23 @@ Create a ridge regression object
 \section{Fields}{
 
 \describe{
-\item{\code{formula,}}{Formula for ridge regression .}
+\item{\code{formula}}{The model's formula.}
 
-\item{\code{data,}}{The provided dataset.}
+\item{\code{data}}{The provided dataset.}
 
-\item{\code{X,}}{the normalized of the matrix of independent variables.}
+\item{\code{lambda}}{penalty.}
 
-\item{\code{my_data_x,}}{The matrix of independent variables.}
+\item{\code{BhatR}}{Coefficients.}
 
-\item{\code{y,}}{The matrix of dependent variables.}
+\item{\code{yhat}}{Estimated values of y.}
 
-\item{\code{yhat,}}{The matrix of dependent variables.}
+\item{\code{data_name}}{The name of the data frame.}
 
-\item{\code{BhatR,}}{Regressions coefficients.}
+\item{\code{X}}{The matrix of independent variables.}
 
-\item{\code{lambda,}}{Penalty}
+\item{\code{my_data_x}}{The imported data frame.}
 
-\item{\code{data_name,}}{The exporting data.}
+\item{\code{y}}{The matrix of dependent variables.}
 }}
 
 
