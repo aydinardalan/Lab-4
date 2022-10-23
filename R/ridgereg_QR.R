@@ -1,5 +1,11 @@
 #'Ridge Regression with QR decomposition
 
+#' @field y_est Estimation of y. 
+#'
+#' @field local_data_name data name. 
+#' @field local_lambda penalty.
+#' @field coefs regression coefficients. 
+#'
 #' @importFrom MASS lm.ridge
 
 ridgereg_QR = setRefClass("ridgereg_QR",
