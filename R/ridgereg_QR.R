@@ -2,8 +2,7 @@
 
 #' @importFrom MASS lm.ridge
 
-ridgereg_QR = setRefClass(
-  Class = "ridgereg_QR",
+ridgereg_QR = setRefClass("ridgereg_QR",
   fields = c(  "coefs",
                "y_est",
                "local_data_name",
@@ -19,7 +18,7 @@ ridgereg_QR = setRefClass(
       my_normalized_data = scale(my_data_x)
       X = as.matrix(my_normalized_data)[,-1]
       
-# QR Decomposition
+      # QR Decomposition
       Xupdated = rbind(X, diag(rep(sqrt(lambda), ncol(X))))
       yupdated = c(y, rep(0, ncol(X)))
       QR = qr(Xupdated)
@@ -28,6 +27,17 @@ ridgereg_QR = setRefClass(
       coefs <<- drop(solve(X_R, (t(X_Q)%*%yupdated)))
       beta_zero = mean(y)
       y_est <<- drop(X %*% coefs + beta_zero) #calculates estimated y
+    },
+    
+    print = function(){
+      cat(paste("ridgereg(formula = ", deparse(formula), ", data = ", local_data_name, ", lambda = ", local_lambda ,")\n\n", sep = ""))
+      return(coefs)
+    },
+    predict = function(){
+      return(y_est)
+    },
+    coef = function(){
+      return(coefs)
     }
   )
 )
