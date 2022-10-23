@@ -27,7 +27,9 @@ ridgereg <- setRefClass("ridgereg",
                                     data_name="character",
                                     X="matrix",
                                     my_data_x="matrix",
-                                    y="matrix"),
+                                    y="matrix",
+                                    Formula="formula",
+                                    local_lambda="numeric"),
                       
                       methods = list(
                         # Constructor (Creating object)
