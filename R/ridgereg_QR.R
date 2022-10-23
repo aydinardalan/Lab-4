@@ -18,6 +18,14 @@ ridgereg_QR = setRefClass(
       y = data[[all.vars(formula)[[1]]]]
       my_normalized_data = scale(my_data_x)
       X = as.matrix(my_normalized_data)[,-1]
+      
+# QR Decomposition
+      Xupdated = rbind(X, diag(rep(sqrt(lambda), ncol(X))))
+      yupdated = c(y, rep(0, ncol(X)))
+      QR = qr(Xupdated)
+      X_Q = qr.Q(QR)
+      X_R = qr.R(QR)
+      coefs <<- drop(solve(X_R, (t(X_Q)%*%yupdated)))
     }
   )
 )
