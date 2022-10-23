@@ -2,7 +2,9 @@
 
 export(linreg)
 export(ridgereg)
+export(ridgereg_QR)
 exportClasses(linreg)
 exportClasses(ridgereg)
 import(ggplot2)
 import(methods)
+importFrom(MASS,lm.ridge)

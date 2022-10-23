@@ -6,6 +6,7 @@
 #' @field local_lambda penalty.
 #' @field coefs regression coefficients. 
 #'
+#' @export ridgereg_QR
 #' @importFrom MASS lm.ridge
 
 ridgereg_QR = setRefClass("ridgereg_QR",

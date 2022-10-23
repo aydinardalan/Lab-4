@@ -16,6 +16,7 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     methods,
-    ggplot2 
+    ggplot2,
+    MASS
 VignetteBuilder: knitr
 LazyData: true
