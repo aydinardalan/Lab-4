@@ -26,6 +26,8 @@ ridgereg_QR = setRefClass(
       X_Q = qr.Q(QR)
       X_R = qr.R(QR)
       coefs <<- drop(solve(X_R, (t(X_Q)%*%yupdated)))
+      beta_zero = mean(y)
+      y_est <<- drop(X %*% coefs + beta_zero) #calculates estimated y
     }
   )
 )
