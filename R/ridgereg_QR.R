@@ -3,10 +3,11 @@
 #' @importFrom MASS lm.ridge
 
 ridgereg_QR = setRefClass("ridgereg_QR",
-  fields = c(  "coefs",
-               "y_est",
-               "local_data_name",
-               "local_lambda"),
+  fields = list(coefs="numeric",
+                y_est="numeric",
+                local_data_name="character",
+                local_lambda="numeric"),
+  
   methods = list(
     initialize = function(formula, data, lambda = 0){
       
