@@ -17,6 +17,8 @@ Config/testthat/edition: 3
 Imports: 
     methods,
     ggplot2,
-    MASS
+    MASS,
+    dplyr,
+    nycflights13
 VignetteBuilder: knitr
 LazyData: true
