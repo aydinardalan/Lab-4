@@ -54,7 +54,7 @@ visualize_airport_delays <- function () {
   # join info again to get airport info (and exclude arr_delay)
   destination_delays <-distinct(left_join(group_dest_mean, select(joined_data_dest2, - arr_delay), by = "dest"))
   destination_delays_head<-head(arrange(destination_delays,desc(avg_delay) ))
-}
+
 
 p1<- ggplot(data = as.data.frame(origin_delays)) + 
   geom_point(mapping=aes(x=lat, y=lon)) + 
@@ -96,3 +96,4 @@ p4<- ggplot(data= as.data.frame(destination_delays_head), aes(x= c(destination_d
 
 plist<-list(p1,p2,p3,p4)
 return(plist)
+}
