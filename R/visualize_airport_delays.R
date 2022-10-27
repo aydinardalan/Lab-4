@@ -55,3 +55,44 @@ visualize_airport_delays <- function () {
   destination_delays <-distinct(left_join(group_dest_mean, select(joined_data_dest2, - arr_delay), by = "dest"))
   destination_delays_head<-head(arrange(destination_delays,desc(avg_delay) ))
 }
+
+p1<- ggplot(data = as.data.frame(origin_delays)) + 
+  geom_point(mapping=aes(x=lat, y=lon)) + 
+  labs(title = "Flights Delay - Origin",
+       x="Latitude",
+       y="Longitude")  +
+  theme_minimal() + 
+  geom_label(mapping=aes(x=lat, y=lon), label=c(origin_delays)[[3]]
+  ) 
+
+
+p2<- ggplot(data= as.data.frame(origin_delays), aes(x= paste(c(origin_delays)[[3]]," - " ,c(origin_delays)[[4]]), y=avg_delay )) +
+  geom_bar(stat="identity", fill="grey")+
+  geom_text(aes(label=round(c(origin_delays)[[2]],2)), vjust=-0.3, size=3.5) + 
+  theme_minimal() + labs(title = "Flights Delay - Origin",
+                         x="Airports",
+                         y="Average Delay, in minutes") 
+
+
+
+p3<- ggplot(data = as.data.frame(destination_delays_head)) + 
+  geom_point(mapping=aes(x=lat, y=lon)) + 
+  labs(title = "Top 6 Flights Delayed - Destination",
+       x="Latitude",
+       y="Longitude")  +
+  theme_minimal() + 
+  geom_label(mapping=aes(x=lat, y=lon), label=c(destination_delays_head)[[3]]
+  ) 
+
+
+p4<- ggplot(data= as.data.frame(destination_delays_head), aes(x= c(destination_delays_head)[[3]], y=avg_delay )) +
+  geom_bar(stat="identity", fill="grey")+
+  geom_text(aes(label=round(c(destination_delays_head)[[2]],2)), vjust=-0.3, size=3.5) + 
+  theme_minimal() + labs(title = " Top 6 Flights Delayed - Destination",
+                         x="Airports",
+                         y="Average Delay, in minutes") 
+
+
+
+plist<-list(p1,p2,p3,p4)
+return(plist)
