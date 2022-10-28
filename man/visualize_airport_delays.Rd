@@ -7,9 +7,5 @@
 visualize_airport_delays()
 }
 \description{
-\code{visualize_airport_delays} returns plots concerning the mean delay of flights for different airports by longitude and latitude. The data used is from nycflights13 package.
-}
-\examples{
-visualize_airport_delays()
-
+Visualize airport delays
 }

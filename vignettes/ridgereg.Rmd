@@ -1,0 +1,96 @@
+---
+title: "LabFour: A ridge regression package"
+author: "Aydin Ardalan and seyed Mehdi Mirshojaei"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{LabFour: A ridge regression package}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+```{r include=FALSE}
+library(LabFour)
+library(caret)
+library(mlbench)
+library(leaps)
+```
+
+## Introduction:
+This package contains a ridgereg class object created using object-oriented programming (RC). This object is useful for dealing with ridge regression models, as it provides several methods such as 'pred()' and 'coef()' to obtain the vector of fitted values and the regression coefficients of a given regression model, respectively.
+We want to implement the ridgereg()` to a well known dataset named BostonHousing dataset (in mlbench package).
+
+### Initialization:
+First, we divide the BostonHousing dataset into test and training datasets:
+```{r}
+data("BostonHousing")
+dataSet <- dplyr::select(BostonHousing, -c(chas))
+inTrain <- createDataPartition(
+  y = dataSet$medv, p = .8, list = FALSE)
+training <- dataSet[ inTrain,] 
+testing  <- dataSet[-inTrain,]
+```
+
+### Fitting a linear regression model:
+Fitting the linear regression model using lm (from caret package).
+```{r}
+linregFit <- train(medv ~ ., data= training, method = 'lm', preProc = c("center", "scale"))
+                  
+linregFit
+```
+
+Fitting the linear regression model using forward selection of covariates on the *training* dataset.
+```{r}
+linforFit <- train(medv ~ ., data= training, method = 'leapForward',preProc = c("center", "scale"))
+linforFit
+```
+
+### Evaluating the performance:
+The RMSE measures how close the observed data points are to the model's predicted values.the lower the RMSE, the better the model fits the values. as our dependent variable has a range of 44.5  and a standard deviation of 8.75, it indicates a good fit. 
+
+The Rsquared is a measure of goodness-of-fit and also indicates how close the data are to the fitted regression line. The closer to 1 the $R^2$ value is, the better the model fits the data. in our case, the model explains 68.8% of the variability so, again, we can say that this is a good model.
+
+
+### Fitting the ridgereg() function to the training dataset:
+we have created the `ridgereg_model()` function in order to generate a custom model object for the caret package in order to use in our own ridgereg() function.
+```{r}
+ridge_model <- ridgereg_model()
+fitControl <- trainControl(method = "repeatedcv", number = 10, repeats = 5)
+rGrid <- expand.grid(lambda = 1*10**(c(1:10)))
+set.seed(825)
+rrTune <- train(form = medv ~ ., data = training, method = ridge_model, trControl = fitControl, 
+                tuneGrid = rGrid)
+```
+
+### Finding the best hyperparameter value for λ 
+```{r echo = FALSE, fig.align='center'}
+library(knitr)
+kable(rrTune$results, caption = "Evaluation of the Hyper parameters")
+library(ggplot2)
+ggplot(rrTune$results) + 
+  geom_point(aes(x= log10(lambda), y = RMSE)) + 
+  geom_line(aes(x= log10(lambda), y = RMSE)) + 
+  scale_x_continuous(breaks=seq(0,24,2))
+```
+
+As it can be seen in the picture, the lambda $1*10^6$ yields the best RMSE and with the lowest lambda.
+
+### Evaluate performance of all three models on test dataset:
+As our outcome is numeric, we will use the function `postResample` in order to estimate the root mean squared error (RMSE), the coefficient of determination ($R^2$), and the mean absolute error (MAE).
+```{r}
+pred <- predict(linregFit, testing)
+postResample(pred = pred, obs = testing$medv)
+```
+
+And the same for the forward looking model.
+```{r}
+forpred <- predict(linforFit, testing)
+postResample(pred = forpred, obs = testing$medv)
+```
+
+```{r}
+my_ridge <- ridgereg$new(medv~., data=training, lambda = 10**6)
+X_test <- dplyr::select(testing, -medv)
+ridge_pred <- my_ridge$predict(X_test)
+postResample(pred = ridge_pred, obs = testing$medv)
+```
+
+We can see that in this example both the linear models have better performance for all three evaluation variables (RMSE, $R^2$ and MAE). Conclusion is that this dataset was well-adapted for the linear models. 

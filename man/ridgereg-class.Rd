@@ -4,38 +4,33 @@
 \name{ridgereg-class}
 \alias{ridgereg-class}
 \alias{ridgereg}
-\title{Create a ridge regression object}
-\source{
-Read more at \url{https://en.wikipedia.org/wiki/Ridge_regression}
-}
-\arguments{
-\item{formula, }{The model's formula.}
-
-\item{data, }{The provided dataset.}
-}
+\title{Ridge Regression Class.}
 \description{
-Create a ridge regression object
+Ridge Regression Class.
 }
 \section{Fields}{
 
 \describe{
-\item{\code{formula}}{The model's formula.}
+\item{\code{formula}}{an object of class "formula".}
 
-\item{\code{data}}{The provided dataset.}
+\item{\code{data}}{a data frame.}
 
-\item{\code{lambda}}{penalty.}
+\item{\code{regression_coefficients}}{the regression coefficients of the model calculated using the QR decomposition.}
 
-\item{\code{BhatR}}{Coefficients.}
+\item{\code{fitted_values}}{the fitted values.}
 
-\item{\code{yhat}}{Estimated values of y.}
+\item{\code{lambda}}{a integer.}
 
-\item{\code{data_name}}{The name of the data frame.}
-
-\item{\code{X}}{The matrix of independent variables.}
-
-\item{\code{my_data_x}}{The imported data frame.}
-
-\item{\code{y}}{The matrix of dependent variables.}
+\item{\code{arguments}}{a vector containing the function call.}
 }}
 
+\section{Methods}{
+
+\describe{
+\item{\code{coef()}}{Returns the coefficients.}
+
+\item{\code{predict(newdata)}}{Calculate predictions based on fitted values and new x data.}
+
+\item{\code{print()}}{Same as show, but allows for ridgereg$print(). Will break print(ridgereg) that show allows.}
+}}
 
